@@ -1,0 +1,178 @@
+[
+  {
+    "id": "10",
+    "name": "Sports Day",
+    "description": "Work Sports Day",
+    "admin": [
+      {
+        "id": "1",
+        "name": "Glenn"
+      }
+    ],
+    "users": [
+      {
+        "id": "1",
+        "name": "Glenn",
+        "budget": 4000
+      },
+      {
+        "id": "2",
+        "name": "James",
+        "budget": 5000
+      },
+      {
+        "id": "3",
+        "name": "Craig",
+        "budget": 5000
+      }
+    ],
+    "teams": [
+      {
+        "id": "110",
+        "name": "Orange Team",
+        "odd": "1/4"
+      },
+      {
+        "id": "120",
+        "name": "Yellow Team",
+        "odd": "2/9"
+      },
+      {
+        "id": "130",
+        "name": "Red Team",
+        "odd": "1/8"
+      },
+      {
+        "id": "140",
+        "name": "Blue Team",
+        "odd": "4/5"
+      }
+    ],
+    "events": [
+      {
+        "id": "101",
+        "name": "Egg and Spoon race",
+        "status": "active",
+        "teams": [
+          {
+            "id": "110",
+            "name": "Orange Team",
+            "odd": "1/4",
+            "winner": false
+          },
+          {
+            "id": "120",
+            "name": "Yellow Team",
+            "odd": "2/9",
+            "winner": false
+          },
+          {
+            "id": "130",
+            "name": "Red Team",
+            "odd": "1/8",
+            "winner": false
+          },
+          {
+            "id": "140",
+            "name": "Blue Team",
+            "odd": "4/5",
+            "winner": false
+          }
+        ]
+      },
+      {
+        "id": "102",
+        "name": "Three legged race",
+        "status": "active",
+        "teams": [
+          {
+            "id": "110",
+            "name": "Orange Team",
+            "odd": "1/4",
+            "winner": false
+          },
+          {
+            "id": "120",
+            "name": "Yellow Team",
+            "odd": "2/9",
+            "winner": false
+          },
+          {
+            "id": "130",
+            "name": "Red Team",
+            "odd": "1/8",
+            "winner": false
+          },
+          {
+            "id": "140",
+            "name": "Blue Team",
+            "odd": "4/5",
+            "winner": false
+          }
+        ]
+      },
+      {
+        "id": "103",
+        "name": "Skipping rope race",
+        "status": "completed",
+        "teams": [
+          {
+            "id": "110",
+            "name": "Orange Team",
+            "odd": "1/4",
+            "winner": true
+          },
+          {
+            "id": "120",
+            "name": "Yellow Team",
+            "odd": "2/9",
+            "winner": false
+          },
+          {
+            "id": "130",
+            "name": "Red Team",
+            "odd": "1/8",
+            "winner": false
+          },
+          {
+            "id": "140",
+            "name": "Blue Team",
+            "odd": "4/5",
+            "winner": false
+          }
+        ]
+      }
+    ]
+  },
+   {
+    "id": "20",
+    "name": "Friendly Betting",
+    "description": "Personal betting sim",
+    "admin": [
+      {
+        "id": "1",
+        "name": "James"
+      }
+    ],
+    "users": [
+      {
+        "id": "1",
+        "name": "Glenn",
+        "budget": 5000
+      },
+      {
+        "id": "2",
+        "name": "James",
+        "budget": 5000
+      }
+    ],
+    "events": [
+      {
+        "name": "Orange Team"
+      },
+      {
+        "name": "Yellow Team"
+      }
+    ]
+  }
+]

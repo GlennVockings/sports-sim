@@ -1,0 +1,53 @@
+[
+  {
+    "id": "1",
+    "user": "Glenn",
+    "password": "test",
+    "games": [
+      {
+        "id": "10",
+        "admin": true,
+        "budget": 4000,
+        "activeBets": [
+          {
+            "id": "1111",
+            "name": "Three legged race",
+            "bet": "Orange Team",
+            "amount": 200
+          },
+          {
+            "id": "1112",
+            "name": "Egg and Spoon race",
+            "bet": "Red Team",
+            "amount": 800
+          }
+        ],
+        "completedBets": []
+      },
+      {
+        "id": "20",
+        "admin": false
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "user": "James",
+    "password": "test",
+    "games": [
+      {
+        "id": "10"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "user": "Craig",
+    "password": "test",
+    "games": [
+      {
+        "id": "10"
+      }
+    ]
+  }
+]
