@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { Footer } from "@/components/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Sports Sim",
@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={nunito.className}>
           <main className="flex flex-col">
             <Navbar />
             {children}
