@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form"
 import * as z from "zod"
 import { LoginSchema } from "@/schemas";
-import { FormError } from "@/components/form-error";
+import { FormError } from "@/components/form/form-error";
 import { login } from "@/actions/login";
 import { useState, useTransition } from "react";
 

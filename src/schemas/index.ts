@@ -20,3 +20,19 @@ export const RegisterSchema = z.object({
     message: "Name is required"
   })
 })
+
+export const TeamSchema = z.object({
+  name: z.string().min(1, {
+    message: "Name is required"
+  }),
+  odd: z.string().min(1, {
+    message: "Odd is required"
+  }),
+  winner: z.boolean()
+})
+
+export const EventSchema = z.object({
+  name: z.string(),
+  status: z.enum(["active", "completed"]),
+  teams: z.array(TeamSchema)
+})

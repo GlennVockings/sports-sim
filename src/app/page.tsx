@@ -1,11 +1,18 @@
+"use client"
+
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { FaCrown, FaExclamation } from "react-icons/fa6";
-import dummyGames from '@/mocks/dummyGames.json';
-import { cn } from "@/lib/utils";
+import { FaExclamation } from "react-icons/fa6";
+import { AddTeamForm } from "@/components/form/add-team-form";
+import { ModalWrapper } from "@/components/modal-wrapper";
+import { AddEventForm } from "@/components/form/add-event-form";
+import { useGameStore } from "@/lib/store";
+import { useMemo } from "react";
 
 export default function Home() {
+  const games = useGameStore(state => state.games)
+  const filteredGames = useMemo(() => games.filter(game => game.id === "10"), [games])
 
   return (
     <div className="flex-grow">
@@ -69,64 +76,15 @@ export default function Home() {
           </a>
         </div>
       </div>
-      <div className="flex flex-col gap-4 p-4">
-        <div className="flex justify-between px-2 py-4 bg-custom-3 text-custom-1 rounded-md">
-          <p className="font-semibold">Orange Team</p>
-          <p>Odds: 3/4</p>
-        </div>
-        <div className="flex justify-between px-2 py-4 bg-custom-3 text-custom-1 rounded-md">
-          <p className="font-semibold">Orange Team</p>
-          <p>Odds: 3/4</p>
-        </div>
+      <div className="p-4">
+        <ModalWrapper buttonLabel="Add Team" modalTitle="Add Team">
+          <AddTeamForm />
+        </ModalWrapper>
       </div>
-      <div className="flex flex-col p-4 gap-4">
-      {
-        dummyGames[0].events.map((event: any) => {
-          return (
-            <div key={event.id} className="flex flex-col justify-between gap-2 p-2 rounded-md bg-custom-4 text-white">
-              <div className="flex justify-between items-center">
-                <p className="font-semibold">{ event.name }</p>
-                {
-                  event.status === "active" ? (
-                    <Button className="h-6 px-2">
-                      Bet
-                    </Button>
-                  ) : (
-                    <p className="text-custom-3">
-                      Completed
-                    </p>
-                  )
-                }
-              </div>
-              <div>
-                {
-                  event.teams.map((team:any) => {
-                    return (
-                      <div key={team.id} className="flex justify-between">
-                        <div className="flex gap-2 items-center">
-                          <p>{ team.name }</p>
-                          {
-                            event.status === "completed" ? (
-                              <div>
-                                {
-                                  team.winner ? <FaCrown className="fill-custom-2" /> : ""
-                                }
-                              </div>
-                            ) : (
-                              ""
-                            )
-                          }
-                        </div>
-                        <p>{`Odds: ${team.odd}`}</p>
-                      </div>
-                    )
-                  })
-                }
-              </div>
-            </div>
-          )
-        })
-      }
+      <div className="p-4">
+        <ModalWrapper buttonLabel="Add Event" modalTitle="Add Event">
+          <AddEventForm teams={filteredGames[0].teams || []} />
+        </ModalWrapper>
       </div>
       <a href="https://www.taketimetothink.co.uk" target="_blank">
         <AspectRatio ratio={16/10}>

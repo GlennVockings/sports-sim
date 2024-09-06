@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form"
 import * as z from "zod"
 import { RegisterSchema } from "@/schemas";
-import { FormError } from "@/components/form-error";
+import { FormError } from "@/components/form/form-error";
 import { useState, useTransition } from "react";
 import { register } from "@/actions/register";
 

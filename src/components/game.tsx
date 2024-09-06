@@ -3,31 +3,28 @@
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import dummyGames from '@/mocks/dummyGames.json';
-import { useEffect, useState } from "react";
 import { FaCrown } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
+import { useGameStore } from "@/lib/store";
+import { useMemo } from "react";
+import { ModalWrapper } from "@/components/modal-wrapper";
+import { AddEventForm } from "@/components/form/add-event-form";
+import { AddTeamForm } from "@/components/form/add-team-form";
+import { Badge } from "./ui/badge";
 
 export const GamePage = ({ gameId } : {gameId:string}) => {
-  const [ game, setGame ] = useState<any>()
-  const data = dummyGames
-
-  useEffect(() => {
-    data.forEach(item => {
-      if (item.id === gameId) {
-        setGame(item)
-      }
-    })
-  }, [data, gameId])
+  const games = useGameStore(state => state.games)
+  const filteredGames = useMemo(() => games.filter(game => game.id === gameId), [games, gameId])
+  const sortedUsers = useMemo(() => filteredGames[0].users.sort((a,b) => b.budget - a.budget), [filteredGames])
   
   return (
     <div className="p-4">
       {
-        game && (
+        filteredGames && (
           <>
             <div className="flex flex-col gap-2">
-              <p className="text-xl font-semibold underline tracking-wide">{ game.name }</p>
-              <p className="">{ game.description }</p>
+              <p className="text-xl font-semibold underline tracking-wide">{ filteredGames[0].name }</p>
+              <p className="">{ filteredGames[0].description }</p>
             </div>
             <div className="py-2">
               <Tabs defaultValue="teams">
@@ -39,14 +36,14 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
                 <TabsContent value="teams">
                   <div className="flex flex-col gap-2">
                     <div>
-                      <Button>
-                        Add Team
-                      </Button>
+                      <ModalWrapper buttonLabel="Add Event" modalTitle="Add Event">
+                        <AddTeamForm />
+                      </ModalWrapper>
                     </div>
                     {
-                      game.teams.map((team: any) => {
+                      filteredGames[0].teams?.map((team: any) => {
                         return (
-                          <div key={team.id} className="flex justify-between p-2 bg-orange-100 rounded-md">
+                          <div key={team.id} className="flex justify-between px-2 py-4 bg-custom-3 text-custom-1 rounded-md">
                             <p className="font-semibold">{ team.name }</p>
                             <p>{`Odds: ${team.odd}`}</p>
                           </div>
@@ -58,25 +55,25 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
                 <TabsContent value="events">
                   <div className="flex flex-col gap-2">
                     <div>
-                      <Button>
-                        Add Event
-                      </Button>
+                      <ModalWrapper buttonLabel="Add Event" modalTitle="Add Event">
+                        <AddEventForm teams={filteredGames[0].teams || []} />
+                      </ModalWrapper>
                     </div>
                     {
-                      game.events.map((event: any) => {
+                      filteredGames[0].events?.map((event: any) => {
                         return (
-                          <div key={event.id} className={cn("flex flex-col justify-between gap-2 p-2 rounded-md", event.status !== "completed" ? "bg-blue-100" : "bg-red-100")}>
+                          <div key={event.id} className={cn("flex flex-col justify-between gap-2 p-3 rounded-md text-white", event.status === "completed" ? "bg-custom-4/90" : "bg-custom-4")}>
                             <div className="flex justify-between items-center">
                               <p className="font-semibold">{ event.name }</p>
                               {
                                 event.status === "active" ? (
-                                  <Button className="h-6 px-2">
+                                  <Button className="h-6 px-4 tracking-wide">
                                     Bet
                                   </Button>
                                 ) : (
-                                  <div>
+                                  <Badge>
                                     Completed
-                                  </div>
+                                  </Badge>
                                 )
                               }
                             </div>
@@ -91,7 +88,7 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
                                           event.status === "completed" ? (
                                             <div>
                                               {
-                                                team.winner ? <FaCrown /> : ""
+                                                team.winner ? <FaCrown className="fill-custom-2 text-xl" /> : ""
                                               }
                                             </div>
                                           ) : (
@@ -122,39 +119,23 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        <TableRow>
-                          <TableCell>
-                            1
-                          </TableCell>
-                          <TableCell>
-                            Glenn
-                          </TableCell>
-                          <TableCell>
-                            5000
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            2
-                          </TableCell>
-                          <TableCell>
-                            James
-                          </TableCell>
-                          <TableCell>
-                            5000
-                          </TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>
-                            3
-                          </TableCell>
-                          <TableCell>
-                            Craig
-                          </TableCell>
-                          <TableCell>
-                            5000
-                          </TableCell>
-                        </TableRow>
+                        {
+                          sortedUsers.map((user,index) => {
+                            return (
+                              <TableRow key={user.id}>
+                                <TableCell>
+                                  { index + 1 }
+                                </TableCell>
+                                <TableCell>
+                                  { user.name }
+                                </TableCell>
+                                <TableCell>
+                                  { user.budget }
+                                </TableCell>
+                              </TableRow>
+                            )
+                          })
+                        }
                       </TableBody>
                     </Table>
                   </div>
