@@ -24,6 +24,14 @@ export type User = {
   admin:  boolean
 }
 
+export type Bet = {
+  id: string
+  eventId: string
+  eventName: string
+  amount: number
+  team: Team
+}
+
 export type Game = {
   id: string
   name: string
@@ -31,6 +39,7 @@ export type Game = {
   users: User[]
   teams: Team[] | []
   events: Event[] | []
+  activeBets: Bet[] | []
 }
 
 export type State = {
@@ -38,7 +47,7 @@ export type State = {
 }
 
 export type Actions = {
-  addGame: (name: string, description: string, users: [], teams: [], events: []) => void
+  addGame: (name: string, description: string, users: [], teams: [], events: [], activeBets: []) => void
   removeGame: (id: string) => void
   updateGame: (id: string, name: string, description: string, users: [], teams: [], events: []) => void
   addTeam: (id: string, name: string, odd: string) => void
@@ -199,13 +208,26 @@ export const useGameStore = create<State & Actions>((set) => ({
             }
           ]
         }
+      ],
+      "activeBets": [
+        {
+          "id": "200",
+          "eventId": "101",
+          "eventName": "Egg and Spoon race",
+          "amount": 3000,
+          "team": {
+            "id": "110",
+            "name": "Orange Team",
+            "odd": "1/4"
+          }
+        }
       ]
     }
   ],
-  addGame: (name: string, description: string, users: [], teams: [], events: []) => set((state) => ({
+  addGame: (name: string, description: string, users: [], teams: [], events: [], activeBets: []) => set((state) => ({
     games: [
       ...state.games,
-      { id: uuid(), name, description, users, teams, events }
+      { id: uuid(), name, description, users, teams, events, activeBets }
     ]
   })),
   removeGame: (id: string) => set((state) => ({

@@ -36,7 +36,7 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
                 <TabsContent value="teams">
                   <div className="flex flex-col gap-2">
                     <div>
-                      <ModalWrapper buttonLabel="Add Event" modalTitle="Add Event">
+                      <ModalWrapper buttonLabel="Add Team" modalTitle="Add Team">
                         <AddTeamForm />
                       </ModalWrapper>
                     </div>

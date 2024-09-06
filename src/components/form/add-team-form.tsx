@@ -9,8 +9,11 @@ import { Input } from "../ui/input"
 import { Checkbox } from "../ui/checkbox"
 import { Button } from "../ui/button"
 import { useGameStore } from "@/lib/store"
+import { FormError } from "./form-error"
+import { useState } from "react"
 
 export const AddTeamForm = () => {
+  const [ error, setError ] = useState<string>("")
   const addTeam = useGameStore(state => state.addTeam)
 
   const form = useForm<z.infer<typeof TeamSchema>>({
@@ -24,7 +27,7 @@ export const AddTeamForm = () => {
 
   const onSubmit = (values: z.infer<typeof TeamSchema>) => {
     const { name, odd } = values
-    console.log(name)
+    setError("")
     addTeam("10", name, odd)
   }
 
@@ -74,6 +77,7 @@ export const AddTeamForm = () => {
               </FormItem>
             )}
           />
+          <FormError message={error} />
           <Button type="submit">
             Submit
           </Button>
