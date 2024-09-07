@@ -10,7 +10,9 @@ import { useMemo } from "react";
 import { ModalWrapper } from "@/components/modal-wrapper";
 import { AddEventForm } from "@/components/form/add-event-form";
 import { AddTeamForm } from "@/components/form/add-team-form";
-import { Badge } from "./ui/badge";
+import { Badge } from "@/components/ui/badge";
+import { Warning } from "@/components/warning";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 export const GamePage = ({ gameId } : {gameId:string}) => {
   const games = useGameStore(state => state.games)
@@ -36,19 +38,27 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
                 <TabsContent value="teams">
                   <div className="flex flex-col gap-2">
                     <div>
-                      <ModalWrapper buttonLabel="Add Team" modalTitle="Add Team">
-                        <AddTeamForm />
-                      </ModalWrapper>
+                      <AddTeamForm />
                     </div>
                     {
                       filteredGames[0].teams?.map((team: any) => {
                         return (
-                          <div key={team.id} className="flex justify-between px-2 py-4 bg-custom-3 text-custom-1 rounded-md">
-                            <p className="font-semibold">{ team.name }</p>
-                            <p>{`Odds: ${team.odd}`}</p>
+                          <div key={team.id} className="flex justify-between items-center gap-4 px-2 py-4 bg-custom-3 text-custom-1 rounded-md">
+                            <div className="flex justify-between flex-grow">
+                              <p className="font-semibold">{ team.name }</p>
+                              <p>{`Odds: ${team.odd}`}</p>
+                            </div>
+                            <Button variant={"secondary"} size={"icon"}>
+                              <FaRegTrashCan />
+                            </Button>
                           </div>
                         )
                       })
+                    }
+                    {
+                      filteredGames[0].teams.length >= 5 ? (
+                        <Warning text="You have reached the limit for teams, subscribe to get access to add more." />
+                      ) : ""
                     }
                   </div>
                 </TabsContent>
