@@ -13,12 +13,7 @@ import { useGameStore } from "@/lib/store"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
 import { useMemo, useState } from "react"
 import { FormError } from "./form-error"
-
-interface Team {
-  id: string
-  name: string
-  odd: string
-}
+import { Team } from "@/lib/types"
 
 export const AddEventForm = ({ teams } : { teams: Team[] }) => {
   const [ error, setError ] = useState<string>("")
@@ -45,7 +40,7 @@ export const AddEventForm = ({ teams } : { teams: Team[] }) => {
   const handleCheckboxChange = (team: Team, checked: boolean) => {
     const index = fields.findIndex(field => field.name === team.name)
     if (checked && index === -1) {
-      append({ name: team.name, odd: team.odd, winner: false })
+      append({ id: team.id, name: team.name, odd: team.odd, winner: false })
     } else if (!checked && index !== -1) {
       remove(index)
     }
@@ -55,7 +50,7 @@ export const AddEventForm = ({ teams } : { teams: Team[] }) => {
     if (checked) {
       teams.forEach((team) => {
         if (!fields.some(field => field.name === team.name)) {
-          append({ name: team.name, odd: team.odd, winner: false })
+          append({ id: team.id, name: team.name, odd: team.odd, winner: false })
         }
       })
     } else {
@@ -70,8 +65,9 @@ export const AddEventForm = ({ teams } : { teams: Team[] }) => {
       setError("Hit Event Limit")
       return
     }
-    addEvent("10", name, status, teams)
-    // setOpen(false)
+    console.log(values)
+    // addEvent("10", name, status, teams)
+    setOpen(false)
   }
 
   return (

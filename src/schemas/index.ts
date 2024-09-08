@@ -36,8 +36,13 @@ export const EventSchema = z.object({
     message: "Name is required"
   }),
   status: z.enum(["active", "completed"]),
-  teams: z.array(TeamSchema).min(2, {
-    message: "2 teams are required"
+  teams: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+    odd: z.string(),
+    winner: z.boolean()
+  })).min(2, {
+    message: "Minimum 2 teams are required"
   })
 })
 
