@@ -6,16 +6,16 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { Input } from "../ui/input"
-import { Event, Team } from "@/lib/types"
+import { EventType, TeamType } from "@/lib/types"
 import { useEffect, useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { Button } from "../ui/button"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
 
-export const BetForm = ({ events } : { events: Event[] }) => {
+export const BetForm = ({ events } : { events: EventType[] }) => {
   const [ eventId, setEventId ] = useState<string>("")
-  const [teams, setTeams] = useState<Team[]>([])
+  const [teams, setTeams] = useState<TeamType[]>([])
   const [teamId, setTeamId] = useState<string>("")
   const [open, setOpen] = useState<boolean>(false)
 

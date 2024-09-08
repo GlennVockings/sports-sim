@@ -55,7 +55,7 @@ export default function Home() {
       <div className="p-4">
         <p className="font-semibold text-lg pb-2 underline text-custom-5 underline-offset-2">Games</p>
         <div className="flex flex-col gap-4">
-          <a href="/1/20" className="px-2 py-3 bg-custom-1 text-white rounded-md shadow-xl flex justify-between items-center">
+          <a href="/game/10" className="px-2 py-3 bg-custom-1 text-white rounded-md shadow-xl flex justify-between items-center">
             <div>
               <p>Sports Day 2</p>
               <p className="text-sm">Personal betting sim</p>
@@ -63,15 +63,6 @@ export default function Home() {
             <div className="bg-red-500 p-2 rounded-full flex items-center">
               <FaExclamation className="text-lg" />
               <p className="text-sm">Update</p>
-            </div>
-          </a>
-          <a href="/1/20" className="px-2 py-3 bg-custom-1 text-white rounded-md shadow-xl flex justify-between items-center">
-            <div>
-              <p>Sports Day 2</p>
-              <p className="text-sm">Personal betting sim</p>
-            </div>
-            <div>
-              {/* <FaExclamation className="text-3xl fill-red-500" /> */}
             </div>
           </a>
         </div>

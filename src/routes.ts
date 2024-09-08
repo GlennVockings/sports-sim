@@ -1,5 +1,6 @@
 export const publicRoutes = [
-  "/"
+  "/",
+  "/demo"
 ]
 
 export const authRoutes = [
@@ -8,4 +9,4 @@ export const authRoutes = [
 
 export const apiAuthPrefix = "/api/auth"
 
-export const DEFAULT_LOGIN_REDIRECT = "/user/1"
+export const DEFAULT_LOGIN_REDIRECT = "/user"

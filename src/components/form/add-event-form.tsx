@@ -65,7 +65,6 @@ export const AddEventForm = ({ teams } : { teams: TeamType[] }) => {
       setError("Hit Event Limit")
       return
     }
-    console.log(values)
     addEvent("10", name, status, teams, [])
     setOpen(false)
   }

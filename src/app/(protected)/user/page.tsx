@@ -28,22 +28,10 @@ export default function User() {
       <div className="py-4">
         <p className="font-semibold pb-2 underline">My Games</p>
         <div className="flex flex-col">
-          <a href="/1/10" className="p-2 bg-blue-200 rounded-md shadow-xl">
-            <p>Sports Day</p>
-            <p className="text-sm">Work Sports Day</p>
-          </a>
-        </div>
-      </div>
-      <div className="py-4">
-        <p className="font-semibold pb-2 underline">Joined Games</p>
-        <div className="flex flex-col">
-          <a href="/1/20" className="p-2 bg-red-100 rounded-md shadow-xl flex justify-between items-center">
+          <a href="/demo" className="px-2 py-3 bg-custom-1 text-white rounded-md shadow-xl flex justify-between items-center">
             <div>
-              <p>Sports Day 2</p>
-              <p className="text-sm">Personal betting sim</p>
-            </div>
-            <div>
-              <FaExclamation className="text-3xl fill-red-500" />
+              <p>Demo Sim</p>
+              <p className="text-sm">Showcases the betting system</p>
             </div>
           </a>
         </div>
