@@ -12,6 +12,7 @@ export interface EventType {
   name: string
   status: Status
   teams: TeamType[]
+  bets: BetType[]
 }
 
 export interface UserType {

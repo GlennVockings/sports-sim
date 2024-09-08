@@ -13,9 +13,9 @@ import { useGameStore } from "@/lib/store"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
 import { useMemo, useState } from "react"
 import { FormError } from "./form-error"
-import { Team } from "@/lib/types"
+import { TeamType } from "@/lib/types"
 
-export const AddEventForm = ({ teams } : { teams: Team[] }) => {
+export const AddEventForm = ({ teams } : { teams: TeamType[] }) => {
   const [ error, setError ] = useState<string>("")
   const [ open, setOpen ] = useState<boolean>(false)
 
@@ -37,7 +37,7 @@ export const AddEventForm = ({ teams } : { teams: Team[] }) => {
     rules: { minLength: 2 }
   })
 
-  const handleCheckboxChange = (team: Team, checked: boolean) => {
+  const handleCheckboxChange = (team: TeamType, checked: boolean) => {
     const index = fields.findIndex(field => field.name === team.name)
     if (checked && index === -1) {
       append({ id: team.id, name: team.name, odd: team.odd, winner: false })
@@ -66,7 +66,7 @@ export const AddEventForm = ({ teams } : { teams: Team[] }) => {
       return
     }
     console.log(values)
-    addEvent("10", name, status, teams)
+    addEvent("10", name, status, teams, [])
     setOpen(false)
   }
 
