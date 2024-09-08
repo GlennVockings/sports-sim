@@ -16,9 +16,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 export const AddTeamForm = () => {
   const [ error, setError ] = useState<string>("")
   const [ open, setOpen ] = useState<boolean>(false)
-
-  const addTeam = useGameStore(state => state.addTeam)
-  const games = useGameStore(state => state.games)
+  
+  const { games, addTeam } = useGameStore(state => state)
   const filteredGames = useMemo(() => games.filter(game => game.id === "10"), [games])
 
   const form = useForm<z.infer<typeof TeamSchema>>({

@@ -29,7 +29,8 @@ export type Bet = {
   eventId: string
   eventName: string
   amount: number
-  team: Team
+  teamName: string
+  teamOdd: string
 }
 
 export type Game = {
@@ -51,6 +52,9 @@ export type Actions = {
   removeGame: (id: string) => void
   updateGame: (id: string, name: string, description: string, users: [], teams: [], events: []) => void
   addTeam: (id: string, name: string, odd: string) => void
+  removeTeam: (gameId: string, id: string) => void
+  addEvent: (gameId: string, name: string, status: Status, teams: []) => void
+  removeEvent: (gameId: string, id: string) => void
 }
 
 export const useGameStore = create<State & Actions>((set) => ({
@@ -215,11 +219,8 @@ export const useGameStore = create<State & Actions>((set) => ({
           "eventId": "101",
           "eventName": "Egg and Spoon race",
           "amount": 3000,
-          "team": {
-            "id": "110",
-            "name": "Orange Team",
-            "odd": "1/4"
-          }
+          "teamName": "Orange Team",
+          "teamOdd": "1/4",
         }
       ]
     }
@@ -238,5 +239,14 @@ export const useGameStore = create<State & Actions>((set) => ({
   })),
   addTeam: (id: string, name: string, odd: string) => set((state) => ({
     games: state.games.map(game => game.id === id ? { ...game, teams: [...game.teams, {id: uuid(), name, odd}] } : game )
+  })),
+  removeTeam: (gameId: string, id: string) => set((state) => ({
+    games: state.games.map(game => game.id === gameId ? { ...game, teams: game.teams.filter(team => team.id !== id) } : game)
+  })),
+  addEvent: (gameId: string, name: string, status: Status, teams: []) => set((state) => ({
+    games: state.games.map(game => game.id === gameId ? { ...game, events: [ ...game.events, { id: uuid(), name, status, teams}]} : game)
+  })),
+  removeEvent: (gameId: string, id: string) => set((state) => ({
+    games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.filter(event => event.id !== id)} : game)
   }))
 }))

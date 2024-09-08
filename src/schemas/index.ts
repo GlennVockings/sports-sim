@@ -32,7 +32,23 @@ export const TeamSchema = z.object({
 })
 
 export const EventSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1, {
+    message: "Name is required"
+  }),
   status: z.enum(["active", "completed"]),
-  teams: z.array(TeamSchema)
+  teams: z.array(TeamSchema).min(2, {
+    message: "2 teams are required"
+  })
+})
+
+export const BetSchema = z.object({
+  eventId: z.string().min(1, {
+    message: "Must select an ID"
+  }),
+  eventName: z.string(),
+  teamName: z.string().min(1, {
+    message: "Must select a team"
+  }),
+  teamOdd: z.string(),
+  amount: z.number().gte(1)
 })

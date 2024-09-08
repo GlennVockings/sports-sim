@@ -7,15 +7,15 @@ import { FaCrown } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/lib/store";
 import { useMemo } from "react";
-import { ModalWrapper } from "@/components/modal-wrapper";
 import { AddEventForm } from "@/components/form/add-event-form";
 import { AddTeamForm } from "@/components/form/add-team-form";
 import { Badge } from "@/components/ui/badge";
 import { Warning } from "@/components/warning";
 import { FaRegTrashCan } from "react-icons/fa6";
+import { BetForm } from "./form/bet-form";
 
 export const GamePage = ({ gameId } : {gameId:string}) => {
-  const games = useGameStore(state => state.games)
+  const {games, removeTeam, removeEvent} = useGameStore(state => state)
   const filteredGames = useMemo(() => games.filter(game => game.id === gameId), [games, gameId])
   const sortedUsers = useMemo(() => filteredGames[0].users.sort((a,b) => b.budget - a.budget), [filteredGames])
   
@@ -48,7 +48,7 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
                               <p className="font-semibold">{ team.name }</p>
                               <p>{`Odds: ${team.odd}`}</p>
                             </div>
-                            <Button variant={"secondary"} size={"icon"}>
+                            <Button variant={"secondary"} size={"icon"} onClick={() => removeTeam("10", team.id)}>
                               <FaRegTrashCan />
                             </Button>
                           </div>
@@ -64,28 +64,28 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
                 </TabsContent>
                 <TabsContent value="events">
                   <div className="flex flex-col gap-2">
-                    <div>
-                      <ModalWrapper buttonLabel="Add Event" modalTitle="Add Event">
-                        <AddEventForm teams={filteredGames[0].teams || []} />
-                      </ModalWrapper>
+                    <div className="flex gap-3">
+                      <AddEventForm teams={filteredGames[0].teams || []} />
+                      <BetForm events={filteredGames[0].events || []} />
                     </div>
                     {
                       filteredGames[0].events?.map((event: any) => {
                         return (
                           <div key={event.id} className={cn("flex flex-col justify-between gap-2 p-3 rounded-md text-white", event.status === "completed" ? "bg-custom-4/90" : "bg-custom-4")}>
-                            <div className="flex justify-between items-center">
-                              <p className="font-semibold">{ event.name }</p>
-                              {
-                                event.status === "active" ? (
-                                  <Button className="h-6 px-4 tracking-wide">
-                                    Bet
-                                  </Button>
-                                ) : (
-                                  <Badge>
-                                    Completed
-                                  </Badge>
-                                )
-                              }
+                            <div className="flex justify-between items-center gap-3">
+                              <div className="flex justify-between flex-grow">
+                                <p className="font-semibold">{ event.name }</p>
+                                {
+                                  event.status === "completed" ? (
+                                    <Badge>
+                                      Completed
+                                    </Badge>
+                                  ) : ""
+                                }
+                              </div>
+                              <Button size={"icon"} onClick={() => removeEvent("10", event.id)}>
+                                <FaRegTrashCan />
+                              </Button>
                             </div>
                             <div>
                               {
@@ -115,6 +115,11 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
                           </div>
                         )
                       })
+                    }
+                    {
+                      filteredGames[0].events.length >= 5 ? (
+                        <Warning text="You have reached the limit for events, subscribe to get access to add more." />
+                      ) : ""
                     }
                   </div>
                 </TabsContent>
