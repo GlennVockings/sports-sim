@@ -53,7 +53,7 @@ export type Actions = {
   updateGame: (id: string, name: string, description: string, users: [], teams: [], events: []) => void
   addTeam: (id: string, name: string, odd: string) => void
   removeTeam: (gameId: string, id: string) => void
-  addEvent: (gameId: string, name: string, status: Status, teams: []) => void
+  addEvent: (gameId: string, name: string, status: Status, teams: Team[]) => void
   removeEvent: (gameId: string, id: string) => void
 }
 
@@ -243,7 +243,7 @@ export const useGameStore = create<State & Actions>((set) => ({
   removeTeam: (gameId: string, id: string) => set((state) => ({
     games: state.games.map(game => game.id === gameId ? { ...game, teams: game.teams.filter(team => team.id !== id) } : game)
   })),
-  addEvent: (gameId: string, name: string, status: Status, teams: []) => set((state) => ({
+  addEvent: (gameId: string, name: string, status: Status, teams: Team[]) => set((state) => ({
     games: state.games.map(game => game.id === gameId ? { ...game, events: [ ...game.events, { id: uuid(), name, status, teams}]} : game)
   })),
   removeEvent: (gameId: string, id: string) => set((state) => ({
