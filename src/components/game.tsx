@@ -24,9 +24,15 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
       {
         filteredGames && (
           <>
-            <div className="flex flex-col gap-2">
-              <p className="text-xl font-semibold underline tracking-wide">{ filteredGames[0].name }</p>
-              <p className="">{ filteredGames[0].description }</p>
+            <div className="flex justify-between">
+              <div className="flex flex-col gap-2">
+                <p className="text-xl font-semibold underline tracking-wide">{ filteredGames[0].name }</p>
+                <p className="">{ filteredGames[0].description }</p>
+              </div>
+              <div className="bg-slate-100 shadow-inner py-3 px-4 rounded-md text-center tracking-wide">
+                <p>Budget:</p>
+                <p className="font-semibold">5000</p>
+              </div>
             </div>
             <div className="py-2">
               <Tabs defaultValue="teams">
