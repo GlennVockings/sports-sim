@@ -3,20 +3,6 @@ import { v4 as uuid } from "uuid"
 
 export type Status = "active" | "completed"
 
-export type Team = {
-  id: string
-  name: string
-  odd: string
-  winner?: boolean
-}
-
-export type Event = {
-  id: string
-  name: string
-  status: Status
-  teams: Team[]
-}
-
 export type User = {
   id: string
   name: string
@@ -24,13 +10,28 @@ export type User = {
   admin:  boolean
 }
 
-export type Bet = {
+export type Team = {
   id: string
-  eventId: string
-  eventName: string
+  name: string
+  odd: string
+  winner?: boolean
+}
+
+export type Bet = {
   amount: number
-  teamName: string
+  eventId: string
+  id: string
   teamOdd: string
+  teamName: string
+  userId: string
+}
+
+export type Event = {
+  id: string
+  name: string
+  status: Status
+  teams: Team[]
+  bets: Bet[] | []
 }
 
 export type Game = {
@@ -40,7 +41,6 @@ export type Game = {
   users: User[]
   teams: Team[] | []
   events: Event[] | []
-  activeBets: Bet[] | []
 }
 
 export type State = {
@@ -53,7 +53,7 @@ export type Actions = {
   updateGame: (id: string, name: string, description: string, users: [], teams: [], events: []) => void
   addTeam: (id: string, name: string, odd: string) => void
   removeTeam: (gameId: string, id: string) => void
-  addEvent: (gameId: string, name: string, status: Status, teams: Team[]) => void
+  addEvent: (gameId: string, name: string, status: Status, teams: Team[], bets: []) => void
   removeEvent: (gameId: string, id: string) => void
 }
 
@@ -148,6 +148,32 @@ export const useGameStore = create<State & Actions>((set) => ({
               "odd": "4/5",
               "winner": false
             }
+          ],
+          "bets": [
+            {
+              "id": "200",
+              "eventId": "101",
+              "userId": "1",
+              "amount": 3000,
+              "teamName": "Orange Team",
+              "teamOdd": "1/4",
+            },
+            {
+              "id": "201",
+              "eventId": "101",
+              "userId": "2",
+              "amount": 400,
+              "teamName": "Red Team",
+              "teamOdd": "1/8",
+            },
+            {
+              "id": "202",
+              "eventId": "101",
+              "userId": "3",
+              "amount": 2100,
+              "teamName": "Blue Team",
+              "teamOdd": "4/5",
+            }
           ]
         },
         {
@@ -179,7 +205,8 @@ export const useGameStore = create<State & Actions>((set) => ({
               "odd": "4/5",
               "winner": false
             }
-          ]
+          ],
+          "bets": []
         },
         {
           "id": "103",
@@ -210,17 +237,8 @@ export const useGameStore = create<State & Actions>((set) => ({
               "odd": "4/5",
               "winner": false
             }
-          ]
-        }
-      ],
-      "activeBets": [
-        {
-          "id": "200",
-          "eventId": "101",
-          "eventName": "Egg and Spoon race",
-          "amount": 3000,
-          "teamName": "Orange Team",
-          "teamOdd": "1/4",
+          ],
+          "bets": []
         }
       ]
     }
@@ -243,8 +261,8 @@ export const useGameStore = create<State & Actions>((set) => ({
   removeTeam: (gameId: string, id: string) => set((state) => ({
     games: state.games.map(game => game.id === gameId ? { ...game, teams: game.teams.filter(team => team.id !== id) } : game)
   })),
-  addEvent: (gameId: string, name: string, status: Status, teams: Team[]) => set((state) => ({
-    games: state.games.map(game => game.id === gameId ? { ...game, events: [ ...game.events, { id: uuid(), name, status, teams}]} : game)
+  addEvent: (gameId: string, name: string, status: Status, teams: Team[], bets: []) => set((state) => ({
+    games: state.games.map(game => game.id === gameId ? { ...game, events: [ ...game.events, { id: uuid(), name, status, teams, bets}]} : game)
   })),
   removeEvent: (gameId: string, id: string) => set((state) => ({
     games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.filter(event => event.id !== id)} : game)

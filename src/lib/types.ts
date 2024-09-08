@@ -1,40 +1,41 @@
 export type Status = "active" | "completed"
 
-export interface Team {
+export interface TeamType {
   id: string
   name: string
   odd: string
   winner?: boolean
 }
 
-export interface Event {
+export interface EventType {
   id: string
   name: string
   status: Status
-  teams: Team[]
+  teams: TeamType[]
 }
 
-export interface User {
+export interface UserType {
   id: string
   name: string
   budget: number
   admin:  boolean
 }
 
-export interface Bet {
+export interface BetType {
   id: string
   eventId: string
-  eventName: string
+  userId: string
   amount: number
-  team: Team
+  teamName: string
+  teamOdd: string
 }
 
-export interface Game {
+export interface GameType {
   id: string
   name: string
   description: string
-  users: User[]
-  teams: Team[] | []
-  events: Event[] | []
-  activeBets: Bet[] | []
+  users: UserType[]
+  teams: TeamType[] | []
+  events: EventType[] | []
+  activeBets: BetType[] | []
 }

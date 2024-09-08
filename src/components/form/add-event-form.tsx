@@ -59,7 +59,7 @@ export const AddEventForm = ({ teams } : { teams: Team[] }) => {
   }
  
   const onSubmit = (values: z.infer<typeof EventSchema>) => {
-    const { name, status, teams } = values
+    const { name, status, teams} = values
     setError("")
     if (filteredGames[0].events.length >= 5) {
       setError("Hit Event Limit")
