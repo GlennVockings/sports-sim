@@ -8,7 +8,7 @@ import { TeamsWrapper } from "./teams-wrapper";
 import { EventsWrapper } from "./events-wrapper";
 
 export const GamePage = ({ gameId } : {gameId:string}) => {
-  const {games, removeEvent} = useGameStore(state => state)
+  const { games } = useGameStore(state => state)
   const filteredGames = useMemo(() => games.filter(game => game.id === gameId), [games, gameId])
   const sortedUsers = useMemo(() => filteredGames[0].users.sort((a,b) => b.budget - a.budget), [filteredGames])
   
