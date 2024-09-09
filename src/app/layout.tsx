@@ -21,8 +21,8 @@ export default async function RootLayout({
   const session = await auth();
   
   return (
-    <SessionProvider session={session}>
-      <html lang="en">
+    <html lang="en">
+      <SessionProvider session={session}>
         <body className={nunito.className}>
           <main className="flex flex-col">
             <Navbar />
@@ -30,7 +30,7 @@ export default async function RootLayout({
             <Footer />
           </main>
         </body>
-      </html>
-    </SessionProvider>
+      </SessionProvider>
+    </html>
   );
 }

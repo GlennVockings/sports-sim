@@ -2,13 +2,13 @@
 
 import { FaUser } from "react-icons/fa6"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
-import { useCurrentUser } from "@/hooks/use-current-user"
 import { LogoutButton } from "./logout-button"
 import { IoExitOutline } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa6";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export const UserButton = () => {
-  const user = useCurrentUser();
+    const user =useCurrentUser();
 
   return (
     <>
@@ -18,7 +18,7 @@ export const UserButton = () => {
             <DropdownMenuTrigger>
               <div className="flex gap-1 items-center">
                 <FaUser />
-                <p>{ user?.name }</p>
+                <p>{user.name}</p>
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
