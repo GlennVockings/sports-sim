@@ -24,6 +24,7 @@ export type Bet = {
   teamOdd: string
   teamName: string
   userId: string
+  userName: string
 }
 
 export type Event = {
@@ -154,6 +155,7 @@ export const useGameStore = create<State & Actions>((set) => ({
               "id": "200",
               "eventId": "101",
               "userId": "1",
+              "userName": "Glenn",
               "amount": 3000,
               "teamName": "Orange Team",
               "teamOdd": "1/4",
@@ -162,6 +164,7 @@ export const useGameStore = create<State & Actions>((set) => ({
               "id": "201",
               "eventId": "101",
               "userId": "2",
+              "userName": "James",
               "amount": 400,
               "teamName": "Red Team",
               "teamOdd": "1/8",
@@ -170,6 +173,7 @@ export const useGameStore = create<State & Actions>((set) => ({
               "id": "202",
               "eventId": "101",
               "userId": "3",
+              "userName": "Craig",
               "amount": 2100,
               "teamName": "Blue Team",
               "teamOdd": "4/5",

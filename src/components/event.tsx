@@ -4,6 +4,7 @@ import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
 import { FaCrown, FaRegTrashCan } from "react-icons/fa6"
 import { useGameStore } from "@/lib/store"
+import { Separator } from "./ui/separator"
 
 export const Event = ({ event } : { event: EventType }) => {
   const removeEvent = useGameStore(state => state.removeEvent)
@@ -54,17 +55,20 @@ export const Event = ({ event } : { event: EventType }) => {
       </div>
       {
         event.bets.length > 0 ? (
-          <div className="bg-custom-3 text-custom-4 p-3 rounded-b-md">
-            <p className="font-bold tracking-wide">Bets</p>
-            {
-              event.bets.map((bet : any) => (
-                <div key={bet.id} className="flex justify-between gap-3">
-                  <p>{ bet.userId }</p>
-                  <p>{ bet.teamName }</p>
-                  <p>{ bet.amount }</p>
-                </div>
-              ))
-            }
+          <div className="bg-custom-3 text-custom-4 p-3 rounded-b-md flex flex-col gap-1">
+            <p className="font-bold tracking-wide text-center leading-4">Bets</p>
+            <Separator className="bg-custom-4" />
+            <div>
+              {
+                event.bets.map((bet : any) => (
+                  <div key={bet.id} className="flex justify-between gap-3">
+                    <p>{ bet.userName }</p>
+                    <p>{ bet.teamName }</p>
+                    <p>{ bet.amount }</p>
+                  </div>
+                ))
+              }
+            </div>
           </div>
         ) : ""
       }
