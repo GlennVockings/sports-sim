@@ -6,22 +6,17 @@ import { FaRegUser } from "react-icons/fa6";
 import { auth } from "@/auth";
 
 export const UserButton = async () => {
-  
   const session = await auth();
-
-  console.log(session)
-
-  return ""
 
   return (
     <>
       {
-        user !== undefined ? (
+        session ? (
           <DropdownMenu>
             <DropdownMenuTrigger>
               <div className="flex gap-1 items-center">
                 <FaUser />
-                <p>{user.name}</p>
+                <p>{session?.user?.name}</p>
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
