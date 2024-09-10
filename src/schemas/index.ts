@@ -50,12 +50,13 @@ export const BetSchema = z.object({
   eventId: z.string().min(1, {
     message: "Must select an ID"
   }),
-  eventName: z.string(),
   teamName: z.string().min(1, {
     message: "Must select a team"
   }),
   teamOdd: z.string(),
-  amount: z.number().gte(1)
+  amount: z.number().gte(1),
+  userId: z.string(),
+  userName: z.string()
 })
 
 export const UserSchema = z.object({

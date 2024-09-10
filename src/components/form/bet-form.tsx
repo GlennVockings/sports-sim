@@ -12,31 +12,30 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Button } from "../ui/button"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
+import { useCurrentUser } from "@/hooks/use-current-user"
 
 export const BetForm = ({ events } : { events: EventType[] }) => {
   const [ eventId, setEventId ] = useState<string>("")
   const [teams, setTeams] = useState<TeamType[]>([])
   const [teamId, setTeamId] = useState<string>("")
   const [open, setOpen] = useState<boolean>(false)
+  const user = useCurrentUser();
 
   const form = useForm<z.infer<typeof BetSchema>>({
     resolver: zodResolver(BetSchema),
     defaultValues: {
       eventId: "",
-      eventName: "",
       teamName: "",
       teamOdd: "",
-      amount: 0
+      amount: 0,
+      userId: user?.id,
+      userName: user?.name || ""
     }
   })
 
   useEffect(() => {
     const selectedEvent = events.find(event => event.id === eventId)
     const selectedTeam = selectedEvent?.teams.find(team => team.id === teamId)
-    if (selectedEvent) {
-      form.setValue("eventName", selectedEvent.name)
-      setTeams(selectedEvent.teams)
-    }
     if (selectedTeam) {
       form.setValue("teamName", selectedTeam.name)
       form.setValue("teamOdd", selectedTeam.odd)
@@ -54,9 +53,9 @@ export const BetForm = ({ events } : { events: EventType[] }) => {
           Bet
         </Button>
       </DialogTrigger>
-      <DialogContent aria-describedby="Add Team">
+      <DialogContent aria-describedby="Betting form">
         <DialogHeader>
-          <DialogTitle>Add Team</DialogTitle>
+          <DialogTitle>Make a bet</DialogTitle>
         </DialogHeader>
         <div>
           <Form {...form}>
@@ -81,20 +80,7 @@ export const BetForm = ({ events } : { events: EventType[] }) => {
                     </SelectContent>
                   </Select>
                 )}
-                />
-              <FormField 
-                control={form.control}
-                name="eventName"
-                render={({field}) => (
-                  <FormItem>
-                    <FormLabel>Event Name</FormLabel>
-                    <FormControl>
-                      <Input {...field} type="text" readOnly />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-                />
+              />
               <FormField
                 control={form.control}
                 name="teamName"
@@ -138,6 +124,32 @@ export const BetForm = ({ events } : { events: EventType[] }) => {
                     <FormMessage />
                   </FormItem>
                 )}
+                />
+                <FormField 
+                  control={form.control}
+                  name="userId"
+                  render={({field}) => (
+                    <FormItem>
+                      <FormLabel>UserId</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="text" value={user?.id} readOnly />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField 
+                  control={form.control}
+                  name="userName"
+                  render={({field}) => (
+                    <FormItem>
+                      <FormLabel>UserName</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="text" value={user?.name || ""} readOnly />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               <Button type="submit">
                 Submit

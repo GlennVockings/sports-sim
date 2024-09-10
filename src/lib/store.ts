@@ -19,7 +19,6 @@ export type Team = {
 
 export type Bet = {
   amount: number
-  eventId: string
   id: string
   teamOdd: string
   teamName: string
@@ -56,6 +55,8 @@ export type Actions = {
   removeTeam: (gameId: string, id: string) => void
   addEvent: (gameId: string, name: string, status: Status, teams: Team[], bets: []) => void
   removeEvent: (gameId: string, id: string) => void
+  addBet: (gameId: string, eventId: string, teamName: string, teamOdd: string, userId: string, userName: string, amount: number) => void
+  removeBet: (gameId: string, eventId: string, id: string) => void
 }
 
 export const useGameStore = create<State & Actions>((set) => ({
@@ -153,7 +154,6 @@ export const useGameStore = create<State & Actions>((set) => ({
           "bets": [
             {
               "id": "200",
-              "eventId": "101",
               "userId": "1",
               "userName": "Glenn",
               "amount": 3000,
@@ -162,7 +162,6 @@ export const useGameStore = create<State & Actions>((set) => ({
             },
             {
               "id": "201",
-              "eventId": "101",
               "userId": "2",
               "userName": "James",
               "amount": 400,
@@ -171,7 +170,6 @@ export const useGameStore = create<State & Actions>((set) => ({
             },
             {
               "id": "202",
-              "eventId": "101",
               "userId": "3",
               "userName": "Craig",
               "amount": 2100,
@@ -270,5 +268,11 @@ export const useGameStore = create<State & Actions>((set) => ({
   })),
   removeEvent: (gameId: string, id: string) => set((state) => ({
     games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.filter(event => event.id !== id)} : game)
+  })),
+  addBet: (gameId: string, eventId: string, teamName: string, teamOdd: string, userId: string, userName: string, amount: number) => set((state) => ({
+    games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.map(event => event.id === eventId ? { ...event, bets: [ ...event.bets, { id: uuid(), teamName, teamOdd, userId, userName, amount}] } : event) } : game)
+  })),
+  removeBet: (gameId: string, eventId: string, id: string) => set((state) => ({
+    games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.map(event => event.id === eventId ? { ...event, bets: event.bets.filter(bet => bet.id !== id) } : event )} : game)
   }))
 }))
