@@ -57,3 +57,19 @@ export const BetSchema = z.object({
   teamOdd: z.string(),
   amount: z.number().gte(1)
 })
+
+export const UserSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  budget: z.number().gte(1)
+})
+
+export const GameSchema = z.object({
+  name: z.string().min(1, {
+    message: "Name is required"
+  }),
+  description: z.string(),
+  users: z.array(UserSchema),
+  teams: z.array(TeamSchema),
+  events: z.array(EventSchema)
+})

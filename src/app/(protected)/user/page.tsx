@@ -1,16 +1,16 @@
-"use client"
-
 import { logout } from "@/actions/logout";
+import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { FaExclamation } from "react-icons/fa";
 
-export default function User() {
-  const user = useCurrentUser();
+export default async function User() {
+  const session = await auth();
 
   const onClick = () => {
     logout();
   }
+
+  return ""
 
   return (
     <div className="p-4">

@@ -4,6 +4,7 @@ import Credentials from "next-auth/providers/credentials"
 import { LoginSchema } from "./schemas"
 import { getUserByEmail } from "./data/user"
 import bcrypt from "bcryptjs"
+import { apiAuthPrefix, authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from "./routes"
  
 export const authConfig = { 
   pages: {
@@ -12,13 +13,25 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isOnDashboard = nextUrl.pathname.startsWith('/user');
-      if (isOnDashboard) {
-        if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL('/user', nextUrl));
+      const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+      const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+      const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+
+      if (isApiAuthRoute) {
+        return
       }
+
+      if (isAuthRoute) {
+        if (isLoggedIn) {
+          return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+        }
+        return 
+      }
+
+      if (!isLoggedIn && !isPublicRoute) {
+        return Response.redirect(new URL("/login", nextUrl))
+      }
+
       return true;
     },
   },

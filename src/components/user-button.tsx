@@ -1,14 +1,17 @@
-"use client"
-
 import { FaUser } from "react-icons/fa6"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { LogoutButton } from "./logout-button"
 import { IoExitOutline } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa6";
-import { useCurrentUser } from "@/hooks/use-current-user";
+import { auth } from "@/auth";
 
-export const UserButton = () => {
-    const user =useCurrentUser();
+export const UserButton = async () => {
+  
+  const session = await auth();
+
+  console.log(session)
+
+  return ""
 
   return (
     <>
