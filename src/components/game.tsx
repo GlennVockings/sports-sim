@@ -3,14 +3,25 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGameStore } from "@/lib/store";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { TeamsWrapper } from "./teams-wrapper";
 import { EventsWrapper } from "./events-wrapper";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { UserType } from "@/lib/types";
 
-export const GamePage = ({ gameId } : {gameId:string}) => {
+export const GamePage = ({ gameId } : { gameId: string }) => {
   const { games } = useGameStore(state => state)
+  const [sortedUsers, setSortedUsers] = useState<UserType[]>([]);
+  
   const filteredGames = useMemo(() => games.filter(game => game.id === gameId), [games, gameId])
-  const sortedUsers = useMemo(() => filteredGames[0].users.sort((a,b) => b.budget - a.budget), [filteredGames])
+  const currentUser = useCurrentUser();
+
+  useEffect(() => {
+    if (filteredGames.length > 0) {
+      const sorted = [...filteredGames[0].users].sort((a, b) => b.budget - a.budget);
+      setSortedUsers(sorted);
+    }
+  }, [filteredGames]);
   
   return (
     <div className="p-4">
@@ -24,7 +35,17 @@ export const GamePage = ({ gameId } : {gameId:string}) => {
               </div>
               <div className="bg-slate-100 shadow-inner py-3 px-4 rounded-md text-center tracking-wide">
                 <p>Budget:</p>
-                <p className="font-semibold">5000</p>
+                {
+                  sortedUsers?.map((user : UserType) =>
+                    user.id === currentUser?.id ? (
+                      <p key={user.id} className="font-semibold">
+                        {user.budget}
+                      </p>
+                    ) : (
+                      ""
+                    )
+                  )
+                }
               </div>
             </div>
             <div className="py-2">

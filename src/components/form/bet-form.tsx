@@ -13,12 +13,14 @@ import { Button } from "../ui/button"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog"
 import { useCurrentUser } from "@/hooks/use-current-user"
+import { useGameStore } from "@/lib/store"
 
 export const BetForm = ({ events } : { events: EventType[] }) => {
   const [ eventId, setEventId ] = useState<string>("")
-  const [teams, setTeams] = useState<TeamType[]>([])
-  const [teamId, setTeamId] = useState<string>("")
-  const [open, setOpen] = useState<boolean>(false)
+  const [ teams, setTeams ] = useState<TeamType[]>([])
+  const [ teamId, setTeamId ] = useState<string>("")
+  const [ open, setOpen ] = useState<boolean>(false)
+  const { addBet } = useGameStore(state => state)
   const user = useCurrentUser();
 
   const form = useForm<z.infer<typeof BetSchema>>({
@@ -36,6 +38,9 @@ export const BetForm = ({ events } : { events: EventType[] }) => {
   useEffect(() => {
     const selectedEvent = events.find(event => event.id === eventId)
     const selectedTeam = selectedEvent?.teams.find(team => team.id === teamId)
+    if (selectedEvent) {
+      setTeams(selectedEvent.teams)
+    }
     if (selectedTeam) {
       form.setValue("teamName", selectedTeam.name)
       form.setValue("teamOdd", selectedTeam.odd)
@@ -43,7 +48,8 @@ export const BetForm = ({ events } : { events: EventType[] }) => {
   }, [eventId, events, form, teamId])
 
   const onSubmit = (values: z.infer<typeof BetSchema>) => {
-    console.log(values);
+    const { eventId, teamName, teamOdd, userId, userName, amount } = values;
+    addBet("10", eventId, teamName, teamOdd, userId, userName, amount)
   }
   
   return (

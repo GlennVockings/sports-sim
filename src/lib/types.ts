@@ -24,7 +24,6 @@ export interface UserType {
 
 export interface BetType {
   id: string
-  eventId: string
   userId: string
   amount: number
   teamName: string

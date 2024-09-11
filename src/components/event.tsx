@@ -10,9 +10,9 @@ export const Event = ({ event } : { event: EventType }) => {
   const removeEvent = useGameStore(state => state.removeEvent)
 
   return (
-    <div className={cn("flex flex-col justify-between gap-2 rounded-md text-white", event.status === "completed" ? "bg-custom-4/90" : "bg-custom-4")}>
+    <div className={cn("flex flex-col justify-between gap-2 rounded-md text-white shadow-lg", event.status === "completed" ? "bg-custom-4/90" : "bg-custom-4")}>
       <div className="p-3">  
-        <div className="flex justify-between items-center gap-3">
+        <div className="flex justify-between items-center gap-3 pb-2">
           <div className="flex justify-between flex-grow">
             <p className="font-bold tracking-wide">{ event.name }</p>
             {
@@ -37,7 +37,7 @@ export const Event = ({ event } : { event: EventType }) => {
                     {
                       event.status === "completed" ? (
                         <div>
-                          {
+                          { 
                             team.winner ? <FaCrown className="fill-custom-2 text-xl" /> : ""
                           }
                         </div>

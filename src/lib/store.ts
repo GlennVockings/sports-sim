@@ -96,6 +96,12 @@ export const useGameStore = create<State & Actions>((set) => ({
           "name": "Olivia",
           "budget": 500,
           "admin": false
+        },
+        {
+          "id": "cm0i2f9km0000qke84szlfvia",
+          "name": "example",
+          "budget": 5000,
+          "admin": false
         }
       ],
       "teams": [
@@ -270,7 +276,7 @@ export const useGameStore = create<State & Actions>((set) => ({
     games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.filter(event => event.id !== id)} : game)
   })),
   addBet: (gameId: string, eventId: string, teamName: string, teamOdd: string, userId: string, userName: string, amount: number) => set((state) => ({
-    games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.map(event => event.id === eventId ? { ...event, bets: [ ...event.bets, { id: uuid(), teamName, teamOdd, userId, userName, amount}] } : event) } : game)
+    games: state.games.map(game => game.id === gameId ? { ...game, users: game.users.map(user => user.id === userId ? { ...user, amount: user.budget - amount } : user), events: game.events.map(event => event.id === eventId ? { ...event, bets: [ ...event.bets, { id: uuid(), teamName, teamOdd, userId, userName, amount}] } : event) } : game)
   })),
   removeBet: (gameId: string, eventId: string, id: string) => set((state) => ({
     games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.map(event => event.id === eventId ? { ...event, bets: event.bets.filter(bet => bet.id !== id) } : event )} : game)
