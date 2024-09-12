@@ -5,6 +5,7 @@ import { Button } from "./ui/button"
 import { FaCrown, FaRegTrashCan } from "react-icons/fa6"
 import { useGameStore } from "@/lib/store"
 import { Separator } from "./ui/separator"
+import { Bet } from "./bet"
 
 export const Event = ({ event } : { event: EventType }) => {
   const removeEvent = useGameStore(state => state.removeEvent)
@@ -61,11 +62,7 @@ export const Event = ({ event } : { event: EventType }) => {
             <div>
               {
                 event.bets.map((bet : any) => (
-                  <div key={bet.id} className="flex justify-between gap-3">
-                    <p>{ bet.userName }</p>
-                    <p>{ bet.teamName }</p>
-                    <p>{ bet.amount }</p>
-                  </div>
+                  <Bet key={bet.id} bet={bet} />
                 ))
               }
             </div>

@@ -50,6 +50,7 @@ export const BetForm = ({ events } : { events: EventType[] }) => {
   const onSubmit = (values: z.infer<typeof BetSchema>) => {
     const { eventId, teamName, teamOdd, userId, userName, amount } = values;
     addBet("10", eventId, teamName, teamOdd, userId, userName, amount)
+    setOpen(false)
   }
   
   return (

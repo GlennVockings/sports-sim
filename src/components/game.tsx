@@ -8,6 +8,7 @@ import { TeamsWrapper } from "./teams-wrapper";
 import { EventsWrapper } from "./events-wrapper";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { UserType } from "@/lib/types";
+import { UserContext } from "@/lib/userContext";
 
 export const GamePage = ({ gameId } : { gameId: string }) => {
   const { games } = useGameStore(state => state)
@@ -27,7 +28,7 @@ export const GamePage = ({ gameId } : { gameId: string }) => {
     <div className="p-4">
       {
         filteredGames && (
-          <>
+          <UserContext.Provider value={currentUser?.id || ""}>
             <div className="flex justify-between">
               <div className="flex flex-col gap-2">
                 <p className="text-xl font-semibold underline tracking-wide">{ filteredGames[0].name }</p>
@@ -95,7 +96,7 @@ export const GamePage = ({ gameId } : { gameId: string }) => {
                 </TabsContent>
               </Tabs>
             </div>
-          </>
+          </UserContext.Provider>
         )
       }
     </div>
