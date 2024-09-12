@@ -11,7 +11,7 @@ export const Event = ({ event } : { event: EventType }) => {
   const removeEvent = useGameStore(state => state.removeEvent)
 
   return (
-    <div className={cn("flex flex-col justify-between gap-2 rounded-md text-white shadow-lg", event.status === "completed" ? "bg-custom-4/90" : "bg-custom-4")}>
+    <div className={cn("flex flex-col justify-between gap-2 rounded-md text-white shadow-lg md:flex-auto", event.status === "completed" ? "bg-custom-4/90" : "bg-custom-4")}>
       <div className="p-3">  
         <div className="flex justify-between items-center gap-3 pb-2">
           <div className="flex justify-between flex-grow">
@@ -54,21 +54,23 @@ export const Event = ({ event } : { event: EventType }) => {
           }
         </div>
       </div>
-      {
-        event.bets.length > 0 ? (
-          <div className="bg-custom-3 text-custom-4 p-3 rounded-b-md flex flex-col gap-1">
-            <p className="font-bold tracking-wide text-center leading-4">Bets</p>
-            <Separator className="bg-custom-4" />
-            <div>
-              {
-                event.bets.map((bet : any) => (
-                  <Bet key={bet.id} bet={bet} />
-                ))
-              }
+      <div className="md:hidden">
+        {
+          event.bets.length > 0 ? (
+            <div className="bg-custom-3 text-custom-4 p-3 rounded-b-md flex flex-col gap-1">
+              <p className="font-bold tracking-wide text-center leading-4">Bets</p>
+              <Separator className="bg-custom-4" />
+              <div>
+                {
+                  event.bets.map((bet : any) => (
+                    <Bet key={bet.id} bet={bet} />
+                  ))
+                }
+              </div>
             </div>
-          </div>
-        ) : ""
-      }
+          ) : ""
+        }
+      </div>
     </div>
   )
 }

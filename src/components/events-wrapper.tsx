@@ -1,6 +1,4 @@
 import { EventType, TeamType } from "@/lib/types"
-import { AddEventForm } from "./form/add-event-form"
-import { BetForm } from "./form/bet-form"
 import { Warning } from "./warning"
 import { Event } from "./event"
 
@@ -8,11 +6,7 @@ export const EventsWrapper = ({ events, teams } : { events: EventType[], teams: 
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex gap-3">
-        <AddEventForm teams={teams || []} />
-        <BetForm events={events || []} />
-      </div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 md:flex-row">
         {
           events.map((event: EventType) => {
             return (

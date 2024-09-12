@@ -1,7 +1,5 @@
 "use client"
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGameStore } from "@/lib/store";
 import { useEffect, useMemo, useState } from "react";
 import { TeamsWrapper } from "./teams-wrapper";
@@ -9,8 +7,9 @@ import { EventsWrapper } from "./events-wrapper";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { UserType } from "@/lib/types";
 import { UserContext } from "@/lib/userContext";
-import { NewGameForm } from "./form/new-game-form";
 import { GameMobile } from "./game-mobile";
+import { Buttons } from "./buttons";
+import { Leaderboard } from "./leaderboard";
 
 export const GamePage = ({ gameId } : { gameId: string }) => {
   const { games } = useGameStore(state => state)
@@ -51,8 +50,22 @@ export const GamePage = ({ gameId } : { gameId: string }) => {
                 }
               </div>
             </div>
-            <div className="py-2">
+            <div className="border-4 border-red-500">
+              <Buttons />
+            </div>
+            {/* <div className="py-2">
               <GameMobile game={filteredGames[0]} users={sortedUsers} />
+            </div> */}
+            <div className="grid grid-cols-4 grid-rows-auto gap-4">
+                <div className="col-span-4 border-4 border-red-500">
+                  <TeamsWrapper teams={filteredGames[0].teams} />
+                </div>
+                <div className="border-4 border-red-500">
+                  <Leaderboard users={sortedUsers} />
+                </div>
+                <div className="col-span-3 border-4 border-red-500">
+                  <EventsWrapper events={filteredGames[0].events} teams={filteredGames[0].teams} />
+                </div>
             </div>
           </UserContext.Provider>
         )

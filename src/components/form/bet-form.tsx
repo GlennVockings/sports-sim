@@ -51,6 +51,8 @@ export const BetForm = ({ events } : { events: EventType[] }) => {
     const { eventId, teamName, teamOdd, userId, userName, amount } = values;
     addBet("10", eventId, teamName, teamOdd, userId, userName, amount)
     setOpen(false)
+
+    // TODO: check event is still there and status is active in db
   }
   
   return (

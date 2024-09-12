@@ -1,14 +1,10 @@
 import { TeamType } from "@/lib/types"
-import { AddTeamForm } from "./form/add-team-form"
 import { Team } from "./team"
 import { Warning } from "./warning"
 
 export const TeamsWrapper = ({ teams } : { teams: TeamType[] }) => {
   return (
-    <div className="flex flex-col gap-2">
-      <div>
-        <AddTeamForm />
-      </div>
+    <div className="flex flex-col gap-2 md:flex-row">
       {
         teams.map((team: TeamType) => {
           return (
