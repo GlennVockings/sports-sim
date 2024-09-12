@@ -9,6 +9,8 @@ import { EventsWrapper } from "./events-wrapper";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { UserType } from "@/lib/types";
 import { UserContext } from "@/lib/userContext";
+import { NewGameForm } from "./form/new-game-form";
+import { GameMobile } from "./game-mobile";
 
 export const GamePage = ({ gameId } : { gameId: string }) => {
   const { games } = useGameStore(state => state)
@@ -50,51 +52,7 @@ export const GamePage = ({ gameId } : { gameId: string }) => {
               </div>
             </div>
             <div className="py-2">
-              <Tabs defaultValue="teams">
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="leaderboard">Leaderboard</TabsTrigger>
-                  <TabsTrigger value="teams">Teams</TabsTrigger>
-                  <TabsTrigger value="events">Events</TabsTrigger>
-                </TabsList>
-                <TabsContent value="teams">
-                  <TeamsWrapper teams={ filteredGames[0]?.teams } />
-                </TabsContent>
-                <TabsContent value="events">
-                  <EventsWrapper events={filteredGames[0]?.events} teams={filteredGames[0]?.teams} />
-                </TabsContent>
-                <TabsContent value="leaderboard">
-                  <div>
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Pos.</TableHead>
-                          <TableHead>Name</TableHead>
-                          <TableHead>Budget</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {
-                          sortedUsers.map((user,index) => {
-                            return (
-                              <TableRow key={user.id}>
-                                <TableCell>
-                                  { index + 1 }
-                                </TableCell>
-                                <TableCell>
-                                  { user.name }
-                                </TableCell>
-                                <TableCell>
-                                  { user.budget }
-                                </TableCell>
-                              </TableRow>
-                            )
-                          })
-                        }
-                      </TableBody>
-                    </Table>
-                  </div>
-                </TabsContent>
-              </Tabs>
+              <GameMobile game={filteredGames[0]} users={sortedUsers} />
             </div>
           </UserContext.Provider>
         )

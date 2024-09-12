@@ -57,9 +57,10 @@ export type Actions = {
   removeEvent: (gameId: string, id: string) => void
   addBet: (gameId: string, eventId: string, teamName: string, teamOdd: string, userId: string, userName: string, amount: number) => void
   removeBet: (gameId: string, eventId: string, id: string) => void
+  reset: () => void
 }
 
-export const useGameStore = create<State & Actions>((set) => ({
+const initialState: State = {
   games: [
     {
       "id": "10",
@@ -250,7 +251,11 @@ export const useGameStore = create<State & Actions>((set) => ({
         }
       ]
     }
-  ],
+  ]
+}
+
+export const useGameStore = create<State & Actions>((set) => ({
+  ...initialState,
   addGame: (name: string, description: string, users: [], teams: [], events: [], activeBets: []) => set((state) => ({
     games: [
       ...state.games,
@@ -280,5 +285,8 @@ export const useGameStore = create<State & Actions>((set) => ({
   })),
   removeBet: (gameId: string, eventId: string, id: string) => set((state) => ({
     games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.map(event => event.id === eventId ? { ...event, bets: event.bets.filter(bet => bet.id !== id) } : event )} : game)
-  }))
+  })),
+  reset: () => {
+    set(initialState)
+  }
 }))

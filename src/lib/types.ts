@@ -38,5 +38,4 @@ export interface GameType {
   users: UserType[]
   teams: TeamType[] | []
   events: EventType[] | []
-  activeBets: BetType[] | []
 }
