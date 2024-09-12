@@ -56,14 +56,14 @@ export const GamePage = ({ gameId } : { gameId: string }) => {
             {/* <div className="py-2">
               <GameMobile game={filteredGames[0]} users={sortedUsers} />
             </div> */}
-            <div className="grid grid-cols-4 grid-rows-auto gap-4">
-                <div className="col-span-4 border-4 border-red-500">
+            <div className="grid grid-cols-4 grid-rows-auto gap-2">
+                <div className="col-span-4  bg-gray-100 shadow-inner p-2 rounded-md">
                   <TeamsWrapper teams={filteredGames[0].teams} />
                 </div>
-                <div className="border-4 border-red-500">
+                <div className="bg-gray-100 shadow-inner p-2 rounded-md">
                   <Leaderboard users={sortedUsers} />
                 </div>
-                <div className="col-span-3 border-4 border-red-500">
+                <div className="col-span-3 bg-gray-100 shadow-inner p-2 rounded-md">
                   <EventsWrapper events={filteredGames[0].events} teams={filteredGames[0].teams} />
                 </div>
             </div>
