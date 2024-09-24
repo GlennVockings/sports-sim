@@ -39,3 +39,14 @@ export interface GameType {
   teams: TeamType[] | []
   events: EventType[] | []
 }
+
+export interface TierType {
+  name: string
+  description?: string
+  benefits: {
+    id: string
+    name: string
+    result: string
+  }[]
+  price: string
+}

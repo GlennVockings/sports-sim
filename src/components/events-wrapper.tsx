@@ -6,7 +6,7 @@ export const EventsWrapper = ({ events, teams } : { events: EventType[], teams: 
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-col gap-4 md:flex-row">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-3">
         {
           events.map((event: EventType) => {
             return (

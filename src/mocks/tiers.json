@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Free",
+        "benefits": [
+            {
+                "id": "1",
+                "name": "max number of games",
+                "result": "1"
+            },
+            {
+                "id": "2",
+                "name": "max number of teams",
+                "result": "5"
+            },
+            {
+                "id": "3",
+                "name": "max number of events",
+                "result": "5"
+            }
+        ],
+        "price": "free"
+    },
+    {
+        "name": "Basic",
+        "benefits": [
+            {
+                "id": "1",
+                "name": "max number of games",
+                "result": "2"
+            },
+            {
+                "id": "2",
+                "name": "max number of teams",
+                "result": "10"
+            },
+            {
+                "id": "3",
+                "name": "max number of events",
+                "result": "10"
+            }
+        ],
+        "price": "£3"
+    },
+    {
+        "name": "Advanced",
+        "benefits": [
+            {
+                "id": "1",
+                "name": "max number of games",
+                "result": "unlimited"
+            },
+            {
+                "id": "2",
+                "name": "max number of teams",
+                "result": "unlimited"
+            },
+            {
+                "id": "3",
+                "name": "max number of events",
+                "result": "unlimited"
+            }
+        ],
+        "price": "£10"
+    }
+]

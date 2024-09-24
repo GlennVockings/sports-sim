@@ -54,6 +54,7 @@ export type Actions = {
   addTeam: (id: string, name: string, odd: string) => void
   removeTeam: (gameId: string, id: string) => void
   addEvent: (gameId: string, name: string, status: Status, teams: Team[], bets: []) => void
+  updateEvent: (gameId: string, id: string) => void
   removeEvent: (gameId: string, id: string) => void
   addBet: (gameId: string, eventId: string, teamName: string, teamOdd: string, userId: string, userName: string, amount: number) => void
   removeBet: (gameId: string, eventId: string, id: string) => void
@@ -277,6 +278,9 @@ export const useGameStore = create<State & Actions>((set) => ({
   addEvent: (gameId: string, name: string, status: Status, teams: Team[], bets: []) => set((state) => ({
     games: state.games.map(game => game.id === gameId ? { ...game, events: [ ...game.events, { id: uuid(), name, status, teams, bets}]} : game)
   })),
+  updateEvent: (gameId: string, id: string) => set((state) => ({
+    games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.map(event => event.id === id ? { ...event, status: "completed", bets: [] } : event) } : game)
+  })),
   removeEvent: (gameId: string, id: string) => set((state) => ({
     games: state.games.map(game => game.id === gameId ? { ...game, events: game.events.filter(event => event.id !== id)} : game)
   })),
@@ -290,3 +294,6 @@ export const useGameStore = create<State & Actions>((set) => ({
     set(initialState)
   }
 }))
+
+// TODO: go through bets and resolve them in updateEvent
+// TODO: add amount back to user in removeBet

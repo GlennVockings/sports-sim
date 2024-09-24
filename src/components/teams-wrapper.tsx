@@ -4,7 +4,7 @@ import { Warning } from "./warning"
 
 export const TeamsWrapper = ({ teams } : { teams: TeamType[] }) => {
   return (
-    <div className="flex flex-col gap-2 md:flex-row">
+    <div className="grid grid-cols-1 gap-2 md:grid-cols-3 xl:grid-cols-5">
       {
         teams.map((team: TeamType) => {
           return (

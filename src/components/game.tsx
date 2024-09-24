@@ -24,6 +24,8 @@ export const GamePage = ({ gameId } : { gameId: string }) => {
       setSortedUsers(sorted);
     }
   }, [filteredGames]);
+
+  // TODO: make sure budget updates when a bet is made
   
   return (
     <div className="p-4">
@@ -50,20 +52,20 @@ export const GamePage = ({ gameId } : { gameId: string }) => {
                 }
               </div>
             </div>
-            <div className="border-4 border-red-500">
-              <Buttons />
+            <div className="py-4">
+              <Buttons teams={filteredGames[0].teams} events={filteredGames[0].events} />
             </div>
             {/* <div className="py-2">
               <GameMobile game={filteredGames[0]} users={sortedUsers} />
             </div> */}
-            <div className="grid grid-cols-4 grid-rows-auto gap-2">
-                <div className="col-span-4  bg-gray-100 shadow-inner p-2 rounded-md">
+            <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-auto gap-2">
+                <div className="order-2 bg-gray-100 shadow-inner p-2 rounded-md md:order-1 md:col-span-4">
                   <TeamsWrapper teams={filteredGames[0].teams} />
                 </div>
-                <div className="bg-gray-100 shadow-inner p-2 rounded-md">
+                <div className="order-1 bg-gray-100 shadow-inner p-2 rounded-md md:order-2 md:col-span-2 lg:col-span-1">
                   <Leaderboard users={sortedUsers} />
                 </div>
-                <div className="col-span-3 bg-gray-100 shadow-inner p-2 rounded-md">
+                <div className="order-3 bg-gray-100 shadow-inner p-2 rounded-md md:order-3 md:col-span-2 lg:col-span-3">
                   <EventsWrapper events={filteredGames[0].events} teams={filteredGames[0].teams} />
                 </div>
             </div>

@@ -1,19 +1,10 @@
-"use client"
-
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { FaExclamation } from "react-icons/fa6";
-import { AddTeamForm } from "@/components/form/add-team-form";
-import { ModalWrapper } from "@/components/modal-wrapper";
-import { AddEventForm } from "@/components/form/add-event-form";
-import { useGameStore } from "@/lib/store";
-import { useMemo } from "react";
+import { TierSection } from "@/components/tierSection";
 
 export default function Home() {
-  const games = useGameStore(state => state.games)
-  const filteredGames = useMemo(() => games.filter(game => game.id === "10"), [games])
-
   return (
     <div className="flex-grow">
       <div className="grid grid-cols-5">
@@ -68,14 +59,7 @@ export default function Home() {
         </div>
       </div>
       <div className="p-4">
-        <ModalWrapper buttonLabel="Add Team" modalTitle="Add Team">
-          <AddTeamForm />
-        </ModalWrapper>
-      </div>
-      <div className="p-4">
-        <ModalWrapper buttonLabel="Add Event" modalTitle="Add Event">
-          <AddEventForm teams={filteredGames[0].teams || []} />
-        </ModalWrapper>
+        <TierSection />
       </div>
       <a href="https://www.taketimetothink.co.uk" target="_blank">
         <AspectRatio ratio={16/10}>

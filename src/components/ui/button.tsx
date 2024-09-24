@@ -15,12 +15,13 @@ const buttonVariants = cva(
         outline:
           "border border-custom-1 border-2 bg-background text-custom-1 font-semibold",
         secondary:
-          "bg-custom-4 text-custom-3 hover:bg-custom-4/80",
+          "bg-custom-4 text-white hover:bg-custom-4/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-10 px-4 py-2",
+        default: "h-10 px-4 py-2 tracking-wide",
+        round: "h-10 px-4 py-2 tracking-wide rounded-md",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-8 w-8 rounded-md",

@@ -8,20 +8,24 @@ import { Separator } from "./ui/separator"
 import { Bet } from "./bet"
 
 export const Event = ({ event } : { event: EventType }) => {
-  const removeEvent = useGameStore(state => state.removeEvent)
+  const { removeEvent, updateEvent } = useGameStore(state => state)
 
   return (
-    <div className={cn("flex flex-col justify-between gap-2 rounded-md text-white shadow-lg md:flex-auto", event.status === "completed" ? "bg-custom-4/90" : "bg-custom-4")}>
+    <div className={cn("flex flex-col justify-between gap-2 rounded-md text-white shadow-lg", event.status === "completed" ? "bg-custom-4/90" : "bg-custom-4")}>
       <div className="p-3">  
         <div className="flex justify-between items-center gap-3 pb-2">
-          <div className="flex justify-between flex-grow">
+          <div className="flex justify-between items-center flex-grow">
             <p className="font-bold tracking-wide">{ event.name }</p>
             {
               event.status === "completed" ? (
                 <Badge>
                   Completed
                 </Badge>
-              ) : ""
+              ) : (
+                <Button size={"sm"} onClick={() => updateEvent("10", event.id)}>
+                  Finish
+                </Button>
+              )
             }
           </div>
           <Button size={"icon"} onClick={() => removeEvent("10", event.id)}>
