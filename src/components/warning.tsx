@@ -6,7 +6,7 @@ interface WarningProps {
 
 export const Warning = ({ text } : WarningProps) => {
   return (
-    <div className="p-4 bg-yellow-100 text-yellow-600 rounded-md flex items-center gap-3">
+    <div className="p-4 bg-yellow-100 text-yellow-600 rounded-md flex items-center gap-3 md:justify-center md:col-span-3 lg:col-span-4 xl:col-span-5">
       <HiOutlineExclamation className="text-5xl" />
       <div className="flex flex-col gap-2 text-center">
         <p className="font-semibold">{ text }</p>
